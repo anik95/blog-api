@@ -30,3 +30,7 @@ Route::group([
         Route::get('user', 'AuthController@user');
      });
 });
+
+Route::post('post/create', 'PostsController@create');
+Route::get('post/show/{id}', 'PostsController@show');
+Route::put('post/update/{id}', 'PostsController@update');
