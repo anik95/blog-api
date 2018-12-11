@@ -9,37 +9,36 @@ use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
-    public function create(Request $request) 
+    public function create(Request $request)
     {
         $validator = \Validator::make($request->all(), [
             'title' => 'required|unique:posts|max:255',
             'body' => 'required',
         ]);
 
-        if($validator->fails())
-        {
+        if ($validator->fails()) {
             return response()->json($validator->errors());
         }
 
-        $post = new Post; 
+        $post = new Post;
 
         $post->title = $request->input('title');
         $post->body = $request->input('body');
         $post->user_id = auth('api')->user()->id;
 
         $post->save();
-        return response()->json($post);
 
+        return response()->json($post);
     }
 
-    public function show($id)
+    public function getPost($id)
     {
         // dd($id);
         $postShow = Post::where('id', $id)->get();
         return response()->json($postShow);
     }
 
-    public function update(Request $request, $id)
+    public function updatePost(Request $request, $id)
     {
         $validator = \Validator::make($request->all(), [
             'title' => 'required|unique:posts|max:255',

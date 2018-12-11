@@ -30,7 +30,11 @@ Route::group([
         Route::get('user', 'AuthController@user');
      });
 });
-
+//posts api
 Route::post('post/create', 'PostsController@create');
-Route::get('post/show/{id}', 'PostsController@show');
-Route::put('post/update/{id}', 'PostsController@update');
+Route::get('post/getPost/{id}', 'PostsController@show');
+Route::put('post/updatePost/{id}', 'PostsController@update');
+//Comments api
+Route::post('comment/create', 'CommentController@createComment');
+Route::get('comment/create', 'CommentController@getComment');
+Route::put('comment/create', 'CommentController@updateComment');
