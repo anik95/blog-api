@@ -32,9 +32,9 @@ Route::group([
 });
 //posts api
 Route::post('post/create', 'PostsController@create');
-Route::get('post/getPost/{id}', 'PostsController@show');
-Route::put('post/updatePost/{id}', 'PostsController@update');
+Route::get('post/{id}', 'PostsController@getPost');
+Route::put('post/update/{id}', 'PostsController@updatePost');
 //Comments api
-Route::post('comment/create', 'CommentController@createComment');
-Route::get('comment/create', 'CommentController@getComment');
-Route::put('comment/create', 'CommentController@updateComment');
+Route::post('comment/create/{postId}', 'CommentsController@createComment');
+Route::get('comment/show/{postId}', 'CommentsController@getComment');
+Route::put('comment/update/{commentId}', 'CommentsController@updateComment');

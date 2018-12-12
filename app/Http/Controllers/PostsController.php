@@ -14,6 +14,7 @@ class PostsController extends Controller
         $validator = \Validator::make($request->all(), [
             'title' => 'required|unique:posts|max:255',
             'body' => 'required',
+            'likes' => 'nullable'
         ]);
 
         if ($validator->fails()) {
