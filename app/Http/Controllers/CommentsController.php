@@ -9,29 +9,33 @@ use App\Comment;
 
 class CommentsController extends Controller
 {
-    public function createComment($request, $postId) {
+    public function createComment(Request $request, $postId) {
 
-        $validator = \Validate::make($request->all(), [
+        $validator = \Validator::make($request->all(), [
             'comment' => 'required'
         ]);
+        
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
 
         $newComment = new Comment;
         $newComment->user_id = auth('api')->user()->id;
-        $newComment->post_id = $post_id;
+        $newComment->post_id = $postId;
         $newComment->comment = $request->input('comment');
 
-        $coment->save();
+        $newComment->save();
 
         return response()->json($newComment);
     }
 
-    public function getComment($commentId) {
-        $comment = Comment::where('id', $commentId);
+    public function getComment($postId) {
+        $comment = Comment::where('post_id', $postId)->get();
         return response()->json($comment); 
     }
 
-    public function updateComment($commentId) {
-        $updatedComment = Comment::where('id', $commentId);
+    public function updateComment(Request $request, $commentId) {
+        $updatedComment = Comment::where('id', $commentId)->first();
 
         $updatedComment->comment = $request->input('comment');
         $updatedComment->save();
